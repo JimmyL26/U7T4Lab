@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -127,7 +128,7 @@ public class ArrayListAlgorithms {
      *  DOES mutate (modify) elements in numList
      *  PRECONDITION: numList1.size() > 0
      *
-     *  @param numList1  arraylist of Integers
+     *  @param numList arraylist of Integers
      */
     public static void removeOdds(ArrayList<Integer> numList)
     { /* implement this method! */
@@ -252,6 +253,98 @@ public class ArrayListAlgorithms {
      */
     public static ArrayList<String> parseWordsAndReverse(String sentence)
     { /* implement this method! */
+        ArrayList<String> parse = new ArrayList<String>();
+        while (sentence.indexOf(" ") != -1)
+        {
+            int index = sentence.indexOf(" ");
+            parse.add(0, sentence.substring(0, index));
+            sentence = sentence.substring(index + 1);
+        }
+        parse.add(0, sentence);
+        return parse;
+    }
 
+    /** Removes all words from wordList that begin with "b" and inserts them at the
+     *  front of wordList; all "b" words that are moved should appear in the same order
+     *  in the modified arrayList as they did before being moved
+     *
+     *  For example, this method will take a wordList:
+     *  ["apple", "banana", "cherry", "donut", "bagel", "danish", "berry", "baguette", "soda"]
+     *  and modify it to
+     *  ["banana", "bagel", "berry", "baguette", "apple", "cherry", "donut", "danish", "soda"]
+     *
+     *  DOES mutate (modify) elements in wordList
+     *  PRECONDITIONS: wordList.size() > 0, all strings in wordList have at least one character
+     *
+     *  @param wordList  arraylist of words
+     */
+    public static void moveBWords(ArrayList<String> wordList)
+    { /* implement this method! */
+        ArrayList<String> temp = new ArrayList<String>();
+        for (int i = 0; i < wordList.size(); i++)
+        {
+            String word = wordList.get(i);
+            if (word.substring(0, 1).equals("b"))
+            {
+                temp.add(word);
+                wordList.remove(word);
+                i--;
+            }
+        }
+        for (int i = temp.size() - 1; i >= 0; i--)
+        {
+            wordList.add(0, temp.get(i));
+        }
+    }
+
+    /** Returns arraylist of Integers that contain all mode(s) of the int array numList.
+     *  If elements in numList all appear exactly once, there is no mode, and this method
+     *  should return an empty list
+     *
+     *  For example, if numList is: [1, 2, 3, 2, 4, 5, 5, 6],
+     *  then numList contains two modes: 2, 5
+     *  and this method returns an arraylist containing 2 and 5 (in any order)
+     *  If numList is: [1, 2, 3, 2, 4, 5, 5, 6, 6, 7, 6],
+     *  then numList contains one mode: 6
+     *  and this method returns an arrayList containing 6
+     *  If numList is: [1, 2, 3, 4, 5, 6], then numList contains no mode
+     *  and this method returns an empty arrayList: []
+     *  If numList is: [2, 2, 2, 3, 3, 3, 4, 4, 4],
+     *  then numList contains three modes: 2, 3, 4
+     *  and this method returns an arrayList containing 2, 3, and 4 (in any order)
+     *
+     *  Does NOT mutate (modify) elements in numList
+     *  PRECONDITIONS: numList.length > 0
+     *
+     *  @param numList  numList of ints
+     */
+    public static ArrayList<Integer> modes(int[] numList)
+    { /* implement this method! */
+        ArrayList<Integer> mode = new ArrayList<Integer>();
+        int highestCount = 0;
+        int count = 0;
+        for (int i = 0; i < numList.length; i++)
+        {
+            for (int j = i + 1; j < numList.length; j++)
+            {
+                if (numList[i] == numList[j])
+                {
+                    count++;
+                }
+            }
+            if (count > highestCount)
+            {
+                mode.clear();
+                highestCount = count;
+                mode.add(numList[i]);
+                System.out.println("if" + mode);
+            }
+            else if (count == highestCount)
+            {
+                mode.add(numList[i]);
+                System.out.println("else" + mode);
+            }
+        }
+        return mode;
     }
 }
