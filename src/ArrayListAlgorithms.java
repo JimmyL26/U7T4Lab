@@ -1,6 +1,5 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Locale;
+
 
 public class ArrayListAlgorithms {
     /**
@@ -321,10 +320,10 @@ public class ArrayListAlgorithms {
     public static ArrayList<Integer> modes(int[] numList)
     { /* implement this method! */
         ArrayList<Integer> mode = new ArrayList<Integer>();
-        int highestCount = 0;
-        int count = 0;
+        int highestCount = 1;
         for (int i = 0; i < numList.length; i++)
         {
+            int count = 1;
             for (int j = i + 1; j < numList.length; j++)
             {
                 if (numList[i] == numList[j])
@@ -337,12 +336,10 @@ public class ArrayListAlgorithms {
                 mode.clear();
                 highestCount = count;
                 mode.add(numList[i]);
-                System.out.println("if" + mode);
             }
-            else if (count == highestCount)
+            else if (count == highestCount && count != 1)
             {
                 mode.add(numList[i]);
-                System.out.println("else" + mode);
             }
         }
         return mode;
